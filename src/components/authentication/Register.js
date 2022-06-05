@@ -1,26 +1,26 @@
 import React from 'react';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 
-const Login = () => {
-    const navigate = useNavigate();
+const Register = () => {
     const [
-        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
         user,
         loading,
         error,
-    ] = useSignInWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
 
-        signInWithEmailAndPassword(data.email, data.password)
+        console.log(errors)
+        if (data.password === data.confirmPassword) {
+            createUserWithEmailAndPassword(data.email, data.password)
+        }else{
 
+        }
     };
-    if (user) {
-        navigate('/');
-    }
     return (
         <section class="py-26 ">
             <div class="container px-4 mx-auto">
@@ -29,7 +29,7 @@ const Login = () => {
                         <a class="inline-block mx-auto mb-6" href="#">
                             <img src="nigodo-assets/logo-icon-nigodo.svg" alt="" />
                         </a>
-                        <h2 class="text-3xl md:text-4xl mb-2 font-bold">Log In</h2>
+                        <h2 class="text-3xl md:text-4xl mb-2 font-bold">Register</h2>
                     </div>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div class="mb-6">
@@ -46,6 +46,13 @@ const Login = () => {
                                 class="inline-block w-full p-4 leading-6 text-lg placeholder-indigo-900 bg-white shadow border-2 border-indigo-900 rounded" type="password" placeholder="**********" />
                             {errors.password && <span>This field is required</span>}
                         </div>
+                        <div class="mb-6">
+                            <label class="block mb-2" for="">Confirm Password</label>
+                            <input
+                                {...register("confirmPassword", { required: true })}
+                                class="inline-block w-full p-4 leading-6 text-lg placeholder-indigo-900 bg-white shadow border-2 border-indigo-900 rounded" type="password" placeholder="**********" />
+                            {errors.confirmPassword && <span>This field is required</span>}
+                        </div>
                         <div class="flex flex-wrap -mx-4 mb-6 items-center justify-between">
                             <div class="w-full lg:w-auto px-4 mb-4 lg:mb-0">
                                 <label for="">
@@ -53,10 +60,10 @@ const Login = () => {
                                     <span class="ml-1">Remember me</span>
                                 </label>
                             </div>
-                            <div class="w-full lg:w-auto px-4"><a class="inline-block hover:underline" href="#">Forgot your password?</a></div>
+                            <div class="w-full lg:w-auto px-4"><Link class="inline-block hover:underline" to="reset-password">Forgot your password?</Link></div>
                         </div>
-                        <button class="inline-block w-full py-4 px-6 mb-6 text-center text-lg leading-6 text-white bg-indigo-800 hover:bg-indigo-900 border-3 border-indigo-900 shadow rounded transition duration-200 font-bold">Log In</button>
-                        <p class="text-center mb-6">Don&rsquo;t have an account? <Link class="text-red-500 hover:underline font-bold" to="/register">Register</Link></p>
+                        <button class="inline-block w-full py-4 px-6 mb-6 text-center text-lg leading-6 text-white bg-indigo-800 hover:bg-indigo-900 border-3 border-indigo-900 shadow rounded transition duration-200 font-bold">Register</button>
+                        <p class="text-center mb-6">Already have an account? <Link class="text-red-500 hover:underline font-bold" to="/login">Login</Link></p>
                     </form>
                 </div>
             </div>
@@ -64,4 +71,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;

@@ -1,8 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Login from "./components/authentication/Login";
-import CallToAction from "./components/home/CallToAction";
-import Features from "./components/home/Features";
-import Header from "./components/home/Header";
+import Register from "./components/authentication/Register";
 import Home from "./components/home/Home";
 import Footer from "./components/shared/Footer";
 import Navbar from "./components/shared/Navbar";
@@ -15,11 +13,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
       </Routes>
-      {/* <Login/> */}
-      <Header />
-      <CallToAction />
-      <Features />
       <Footer />
     </div>
   );
