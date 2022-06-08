@@ -14,7 +14,6 @@ const Register = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
 
-        console.log(errors)
         if (data.password === data.confirmPassword) {
             createUserWithEmailAndPassword(data.email, data.password)
         }else{

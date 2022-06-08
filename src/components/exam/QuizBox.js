@@ -33,8 +33,10 @@ const QuizBox = ({ i, q, attemptedNumber, setAttemptedNumber, mark, setMark }) =
                                 }
 
                             }
-                            console.log(mark);
                         }}
+                        
+                        name={`question-${i}`}
+                        // name={q.question}
                         className='grid grid-cols-1 lg:grid-cols-2'>
                         {
                             q.options.map((a, index) =>
@@ -43,14 +45,12 @@ const QuizBox = ({ i, q, attemptedNumber, setAttemptedNumber, mark, setMark }) =
                                     key={index} value={a}
                                     class="flex items-center mb-4">
                                     <input
-                                        id={index}
+                                        id={`${i}-${index}`}
                                         type="radio"
-                                        name={i}
                                         value={a}
                                         class="cursor-pointer  text-2xl w-8 h-8" />
                                     <label
-                                        name={i}
-                                        for={index}
+                                        for={`${i}-${index}`}
                                         class="text-lg ml-2 cursor-pointer">
                                         {a}
                                     </label>

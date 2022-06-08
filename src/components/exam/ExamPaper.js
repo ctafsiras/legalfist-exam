@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import QuizBox from './QuizBox';
 
 const ExamPaper = () => {
-    const { state }=useLocation();
+    const { state: questions } = useLocation();
     const navigate = useNavigate();
     const [attemptedNumber, setAttemptedNumber] = useState(0);
     const [mark, setMark] = useState(0);
@@ -90,16 +90,17 @@ const ExamPaper = () => {
         <div>
             <div className='text-center mx-auto bg-slate-400 shadow-lg'>
 
-                <h2 className='fixed top-0 shado bg-violet-800 rounded-lg shadow-lg border-2 lg:top-0 opacity-100 text-3xl px-2 lg:px-12 font-bold'>Answered<br />{attemptedNumber}/{state.length}</h2>
+                <h2 className='fixed top-0 shado bg-violet-800 rounded-lg shadow-lg border-2 lg:top-0 opacity-100 text-3xl px-2 lg:px-12 font-bold'>Answered<br />{attemptedNumber}/{questions.length}</h2>
 
                 <h2 className='fixed top-0 bg-violet-800 rounded-lg shadow-lg border-2 lg:top-0 text-center right-0 px-2 lg:px-12 text-3xl font-bold'>Remaining<br /> {timer}</h2>
             </div>
 
             <div className='grid gap-2 mx-2 mt-20 z-10'>
                 {
-                    state.map((q, i) => <QuizBox
+                    questions.map((q, i) => <QuizBox
                         key={i}
-                        i={i} q={q}
+                        i={i}
+                        q={q}
                         attemptedNumber={attemptedNumber}
                         setAttemptedNumber={setAttemptedNumber}
                         mark={mark}
@@ -110,9 +111,10 @@ const ExamPaper = () => {
 
 
                 <button
+                    className='btn btn-primary'
                     onClick={() => {
-                        navigate('/result', { state: mark })
-                    }} variant="contained">Submit</button>
+                        navigate('/result', { state: { mark, questions } })
+                    }}>Submit</button>
 
             </div>
         </div>
