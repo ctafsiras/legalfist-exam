@@ -18,7 +18,7 @@ const ExamTopics = () => {
     return (
         <div>
             <h2>Exam Topics</h2>
-            <div class="card w-96 bg-primary text-primary-content">
+            <div data-aos="flip-left" class="card w-96 bg-primary text-primary-content">
                 <div class="card-body">
                     <h2 class="card-title">{name}</h2>
                     <p>{category}</p>
