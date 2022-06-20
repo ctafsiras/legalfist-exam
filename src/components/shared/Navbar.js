@@ -1,32 +1,23 @@
 import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import auth from '../../firebase.init';
 
 const Navbar = () => {
     const [user, loading] = useAuthState(auth);
     const li = <>
-        <li><Link to='/'>Home</Link></li>
-        <li tabindex="0">
-            <Link to='/'>
-                Exam
-                <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
-            </Link>
-            <ul class="p-2">
-                <li><Link to='/exam'>Exam</Link></li>
-                <li><Link to='/'>Result</Link></li>
-            </ul>
-        </li>
-        <li><Link to='/'>About Us</Link></li>
-        <li><Link to='/'>Contact Us</Link></li>
-        <li><Link to='/'>FAQ</Link></li>
+        <li><NavLink className='hover:scale-105 uppercase text-sm font-bold' to='/'>Home</NavLink></li>
+        <li><NavLink className='hover:scale-105 uppercase text-sm font-bold' to='/exam'>Exam</NavLink></li>
+        <li><NavLink className='hover:scale-105 uppercase text-sm font-bold' to='/about'>About Us</NavLink></li>
+        <li><NavLink className='hover:scale-105 uppercase text-sm font-bold' to='/contact'>Contact Us</NavLink></li>
+        {/* <li><NavLink to='/faq'>FAQ</NavLink></li> */}
     </>
     if (loading) {
         return <h2>Loading</h2>
     }
     return (
-        <div class="navbar bg-accent  lg:px-2">
+        <div class="navbar max-w-7xl mx-auto bg-white lg:px-2">
             <div class="navbar-start">
                 <div class="dropdown">
                     <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -36,20 +27,25 @@ const Navbar = () => {
                         {li}
                     </ul>
                 </div>
-                <a class="btn btn-ghost normal-case text-xl">LegalFist Exam</a>
+                <Link to='/' class="btn btn-ghost normal-case text-xl hover:scale-95">
+
+                    <img src='https://i0.wp.com/article.legalfist.com/wp-content/uploads/2021/01/cropped-cropped-legal-fist-logo-1.png?fit=165%2C45&ssl=1' alt="" />
+                </Link>
             </div>
-            <div class="navbar-center hidden lg:flex">
-                <ul class="menu menu-horizontal p-0">
-                    {li}
-                </ul>
-            </div>
+
             <div class="navbar-end">
+                <div class="navbar-center hidden lg:flex">
+                    <ul class="menu menu-horizontal p-0 mr-1">
+                        {li}
+                    </ul>
+                </div>
+
                 <div class="dropdown dropdown-end">
                     {
                         !user ?
                             <>
-                                <Link to='/login' className='btn my-auto btn mr-2'>Login</Link>
-                                <Link to='/register' className='btn my-auto btn-outline'>Register</Link>
+                                <Link to='/login' className='btn my-auto btn btn btn-secondary mr-2 hover:-translate-y-1 text-white'>Login</Link>
+                                <Link to='/register' className='my-auto hidden md:btn md:btn-outline hover:text-white hover:-translate-y-1 btn-secondary'>Register</Link>
                             </>
                             :
                             <>
@@ -65,7 +61,7 @@ const Navbar = () => {
                                             <span class="badge">New</span>
                                         </a>
                                     </li>
-                                    <li><a>Settings</a></li>
+                                    <li><a>Results</a></li>
                                     <li onClick={() => signOut(auth)}><a>Logout</a></li>
                                 </ul>
                             </>

@@ -12,13 +12,13 @@ const ExamTopics = () => {
 
     }, [])
     if (!questionCollection.length > 0) {
-        return <h2>Loading</h2>
+        return <progress class="progress h-1"></progress>
     }
     const { name, category, questions } = questionCollection[0]
     return (
         <div>
-            <h2>Exam Topics</h2>
-            <div data-aos="flip-left" class="card w-96 bg-primary text-primary-content">
+            <h2 className='text-center text-3xl font-semibold text-primary'>Exam Topics</h2>
+            <div data-aos="flip-left" class="card max-w-sm bg-base-200 text--content">
                 <div class="card-body">
                     <h2 class="card-title">{name}</h2>
                     <p>{category}</p>
@@ -27,7 +27,7 @@ const ExamTopics = () => {
                             onClick={() => {
                                 navigate('/examPaper', { state: questions })
                             }}
-                            class="btn">Start Now</button>
+                            class="btn btn-primary">Start Now</button>
                     </div>
                 </div>
             </div>

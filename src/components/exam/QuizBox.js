@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import shuffle from '../../hooks/shuffle';
 
 const QuizBox = ({ i, q, attemptedNumber, setAttemptedNumber, mark, setMark }) => {
 
